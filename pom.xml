@@ -15,6 +15,9 @@
         <module>zshop-order</module>
         <module>zshop-product</module>
         <module>zshop-ware</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>zshop-common</module>
 
     </modules>
 
