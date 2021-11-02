@@ -3,13 +3,9 @@ package com.zmz.shop.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-// import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.zmz.shop.member.provider.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.zmz.shop.member.entity.MemberEntity;
 import com.zmz.shop.member.service.MemberService;
@@ -30,6 +26,19 @@ import com.zmz.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CouponFeignService couponFeignService;
+
+    @GetMapping("/coupons")
+    public R testFeign(){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setUsername("张三");
+
+        R membercoupons = couponFeignService.membercoupons();
+
+        return R.ok().put("member",memberEntity).put("coupons",membercoupons.get("coupons"));
+    }
 
     /**
      * 列表
@@ -83,7 +92,6 @@ public class MemberController {
     //@RequiresPermissions("member:member:delete")
     public R delete(@RequestBody Long[] ids){
 		memberService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
 

@@ -27,6 +27,15 @@ import com.zmz.common.utils.R;
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
+
+    @RequestMapping("/test-feign")
+    public R membercoupons(){
+        CouponEntity couponEntity = new CouponEntity();
+        couponEntity.setCouponName("优惠卷name");
+        return R.ok().put("coupons",Arrays.asList(couponEntity));
+    }
+
+
     @Autowired
     private CouponService couponService;
 
