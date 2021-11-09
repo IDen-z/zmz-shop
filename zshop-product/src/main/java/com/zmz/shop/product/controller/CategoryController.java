@@ -1,6 +1,7 @@
 package com.zmz.shop.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,17 @@ import com.zmz.common.utils.R;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    /**
+     * 查询出所有分类以及子分类  以父子结构显示
+     */
+    @RequestMapping("/list/tree")
+    //@RequiresPermissions("product:category:list")
+    public R listTree(){
+        List<CategoryEntity> res= categoryService.queryListTree();
+        return R.ok().put("data", res);
+    }
+
 
     /**
      * 列表
