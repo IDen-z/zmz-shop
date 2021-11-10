@@ -2,6 +2,7 @@ package com.zmz.shop.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -42,18 +43,24 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<CategoryEntity> collect = entityList.stream().filter(categoryEntity -> {
             return categoryEntity.getParentCid() == 0;
         }).map(categoryEntity -> {
-             categoryEntity.setChildrenList(getChildren(categoryEntity,entityList));
-             return categoryEntity;
+            categoryEntity.setChildrenList(getChildren(categoryEntity, entityList));
+            return categoryEntity;
         }).sorted(Comparator.comparing(CategoryEntity::getSort)).collect(Collectors.toList());
 
         return collect;
     }
 
     /**
-     *  递归查出当前节点下的每个子节点
+     * 递归查出当前节点下的每个子节点
      */
-    private List<CategoryEntity> getChildren(CategoryEntity categoryEntity, List<CategoryEntity> entityList) {
-        return null;
+    private List<CategoryEntity> getChildren(CategoryEntity entity, List<CategoryEntity> entityList) {
+        List<CategoryEntity> res = entityList.stream().filter(categoryEntity -> {
+            return categoryEntity.getParentCid().equals(entity.getCatId());
+        }).map(categoryEntity -> {
+            categoryEntity.setChildrenList(getChildren(categoryEntity, entityList));
+            return categoryEntity;
+        }).sorted(Comparator.comparing(CategoryEntity::getSort)).collect(Collectors.toList());
+        return res;
     }
 
 }

@@ -1,6 +1,5 @@
 server:
   port: 9999
-
 spring:
   datasource:
     username: root
@@ -11,6 +10,8 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  application:
+    name: zshop-product
 
 #classpath加不加*的区别在于加*会把 第三方jar包类路径下匹配到的xml文件也进行包扫描
 mybatis-plus:
