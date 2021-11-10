@@ -1,0 +1,16 @@
+server:
+  port: 80
+spring:
+  application:
+    name: zshop-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+# 前端项目的所有路径都路由到renren-fast
