@@ -50,6 +50,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return collect;
     }
 
+    @Override
+    public void deleteByCatIds(List<Long> ids) {
+        // TODO 检查是否cate是否可删除
+        baseMapper.deleteBatchIds(ids);
+    }
+
     /**
      * 递归查出当前节点下的每个子节点
      */

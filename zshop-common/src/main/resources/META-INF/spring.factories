@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zmz.common.configuration.CommonStartConfiguration,\
+com.zmz.common.configuration.MybatisPlusConfiguration
