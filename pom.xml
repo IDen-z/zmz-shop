@@ -19,6 +19,7 @@
         <module>renren-generator</module>
         <module>zshop-common</module>
         <module>zshop-gateway</module>
+        <module>zshop-es</module>
 
     </modules>
 

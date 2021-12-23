@@ -2,10 +2,7 @@ package com.zmz.shop.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,6 +14,8 @@ import com.zmz.common.utils.Query;
 import com.zmz.shop.product.dao.CategoryDao;
 import com.zmz.shop.product.entity.CategoryEntity;
 import com.zmz.shop.product.service.CategoryService;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 
 @Service("categoryService")
@@ -54,6 +53,27 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void deleteByCatIds(List<Long> ids) {
         // TODO 检查是否cate是否可删除
         baseMapper.deleteBatchIds(ids);
+    }
+
+    /**
+     * 根据传入catelogid查询出全部的路径  也就是全部的父节点id
+     */
+    @Override
+    public Long[] findPath(Long catelogId) {
+        ArrayList<Long> list = new ArrayList<>();
+        findPathRecursion(list, catelogId);
+        // 递归导出是逆序的
+        Collections.reverse(list);
+        return list.toArray(new Long[list.size()]);
+    }
+
+    // 递归查找全部路径
+    private void findPathRecursion(ArrayList<Long> list, Long catelogId) {
+        list.add(catelogId);
+        CategoryEntity categoryEntity = baseMapper.selectById(catelogId);
+        if (!StringUtils.isEmpty(categoryEntity.getParentCid()) && 0 != categoryEntity.getParentCid()) {
+            findPathRecursion(list, categoryEntity.getParentCid());
+        }
     }
 
     /**

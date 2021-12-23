@@ -3,6 +3,7 @@ package com.zmz.shop.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.zmz.shop.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,9 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     /**
      * 列表
      */
@@ -45,10 +49,12 @@ public class AttrGroupController {
     //@RequiresPermissions("product:attrgroup:info")
     public R info(@PathVariable("attrGroupId") Long attrGroupId) {
         AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
-
+        Long catelogId = attrGroup.getCatelogId();
+        // 根据分类id 找到完整的路径  也就是找到所有的父节点
+        Long[] path = categoryService.findPath(catelogId);
+        attrGroup.setCategoryPath(path);
         return R.ok().put("attrGroup", attrGroup);
     }
-
     /**
      * 保存
      */

@@ -1,8 +1,10 @@
 package com.zmz.common.configuration;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 这里是 无主启动类 的项目
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
+@EnableTransactionManagement // 开启事务功能
 public class MybatisPlusConfiguration {
 
     @Bean
