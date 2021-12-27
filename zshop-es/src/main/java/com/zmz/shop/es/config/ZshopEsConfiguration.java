@@ -1,6 +1,7 @@
 package com.zmz.shop.es.config;
 
 import org.apache.http.HttpHost;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -21,6 +22,12 @@ public class ZshopEsConfiguration {
         RestClientBuilder builder = RestClient.builder(new HttpHost("192.168.80.130", 9200,
                 "http"));
         return new RestHighLevelClient(builder);
+    }
+
+    public static final RequestOptions COMMON_OPTIONS;
+    static {
+        RequestOptions.Builder builder = RequestOptions.DEFAULT.toBuilder();
+        COMMON_OPTIONS = builder.build();
     }
 
 

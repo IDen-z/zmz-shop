@@ -53,7 +53,6 @@ public class ZshopEsApplicationTests {
         searchRequest.indices("bank");
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHits hits = searchResponse.getHits();
-        System.err.println(searchResponse.getHits().totalHits);
         for (SearchHit hit : hits) {
             String sourceAsString = hit.getSourceAsString();
             BankAccount bankAccount = JSONObject.parseObject(sourceAsString, BankAccount.class);

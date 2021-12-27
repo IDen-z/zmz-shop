@@ -24,3 +24,8 @@ mybatis-plus:
 logging:
   level:
     com.zmz.shop: debug
+
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000

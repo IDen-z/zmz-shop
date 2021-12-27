@@ -1,6 +1,8 @@
 package com.zmz.shop.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -24,6 +26,15 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<SkuInfoEntity> getSkusBySpuId(Long spuId) {
+        // 根据spuid查询所有的sku信息
+        SkuInfoEntity skuInfoEntity = new SkuInfoEntity();
+        skuInfoEntity.setSpuId(spuId);
+        List<SkuInfoEntity> skuInfoEntityList = baseMapper.selectList(new QueryWrapper<>(skuInfoEntity));
+        return skuInfoEntityList;
     }
 
 }
