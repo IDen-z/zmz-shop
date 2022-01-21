@@ -12,6 +12,9 @@ spring:
         server-addr: 127.0.0.1:8848
   application:
     name: zshop-product
+  redis:
+    host: 192.168.80.130
+    port: 6379
 
 #classpath加不加*的区别在于加*会把 第三方jar包类路径下匹配到的xml文件也进行包扫描
 mybatis-plus:
@@ -29,3 +32,4 @@ logging:
 ribbon:
   ReadTimeout: 30000
   ConnectTimeout: 30000
+

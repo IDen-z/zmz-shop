@@ -17,6 +17,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class MybatisPlusConfiguration {
 
     @Bean
+    public String testBeanMybatis(){
+        System.err.println("mybatis 测试包扫描");
+        return new String("test");
+    }
+
+    @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor page = new PaginationInterceptor();
         page.setDialectType("mysql");

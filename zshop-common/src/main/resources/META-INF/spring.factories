@@ -1,4 +1,5 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.zmz.common.configuration.CommonAutoConfituration
-#com.zmz.common.configuration.CommonStartConfiguration,\
-#com.zmz.common.configuration.MybatisPlusConfiguration
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#  com.zmz.common.configuration.CommonAutoConfituration,\
+#  com.zmz.common.configuration.RedisConfiguration
+##com.zmz.common.configuration.CommonStartConfiguration,\
+##com.zmz.common.configuration.MybatisPlusConfiguration

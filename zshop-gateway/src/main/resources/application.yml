@@ -1,8 +1,16 @@
 server:
   port: 80
 spring:
+#  datasource:
+#    username: root
+#    password: 123456
+#    url: jdbc:mysql://192.168.80.130:3306/zshop_pms
+#    driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: zshop-gateway
+  redis:
+    host: 192.168.80.130
+    port: 6379
   cloud:
     nacos:
       discovery:
@@ -23,5 +31,13 @@ spring:
             - Path=/api/**
           filters:
             - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+        # nginx 转发至网关  由网关分发  要放置最后
+#        - id: zshop_host_route
+#          uri: lb://renren-fast
+#          predicates:
+#            - Path=/api/**
+#          filters:
+#            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
 
 
