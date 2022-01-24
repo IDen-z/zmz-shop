@@ -37,6 +37,9 @@ public class AttrController {
     public String redis() {
         RLock lock = redissonClient.getLock("lock");
         lock.lock();
+
+        // 一般可以使用tryLock方法 ，指定一下获取锁的时间  如果大于那段时间 那么就放弃获取锁
+
         // 加锁成功 执行业务代码
         try {
             System.err.println("加锁成功 执行业务代码" + Thread.currentThread().getName());
@@ -44,6 +47,11 @@ public class AttrController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            // redisson解决了两个问题
+            // 1、 锁的自动续期，redisson会根据看门狗机制判断业务代码是否执行完毕，如果在一定时间内没有执行
+            //     完毕，redisson会自动为同一把锁进行续期。
+            // 2、 加锁的业务只要完成，就不会跟给前锁续期，即使unlock方法 因为某些原因未被执行，所也会因过期时间而失效。
+
             System.err.println("释放锁" + Thread.currentThread().getName());
             lock.unlock();
         }
